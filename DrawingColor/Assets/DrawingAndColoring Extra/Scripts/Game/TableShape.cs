@@ -15,6 +15,7 @@ namespace IndieStudio.DrawingAndColoring.Logic
 			/// <summary>
 			/// The selected shape.
 			/// </summary>
+			/// </summary>
 			public static TableShape selectedShape;
 
 			/// <summary>

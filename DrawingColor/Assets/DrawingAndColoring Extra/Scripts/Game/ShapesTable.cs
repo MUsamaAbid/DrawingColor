@@ -127,6 +127,8 @@ namespace IndieStudio.DrawingAndColoring.Logic
 			/// </summary>
 			private void CreateShapes ()
 			{
+
+			Debug.Log("Under CreateShapes");
 					if (ShapesManager.instance == null) {
 						return;
 					}

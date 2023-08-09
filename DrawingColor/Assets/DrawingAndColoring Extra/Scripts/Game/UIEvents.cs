@@ -62,6 +62,7 @@ namespace IndieStudio.DrawingAndColoring.Logic
 			}
 
 			TableShape.selectedShape = tableShape;
+			Debug.Log("Shape Selected: " + tableShape.name);
 			LoadGameScene ();
 		}
 
@@ -173,10 +174,12 @@ namespace IndieStudio.DrawingAndColoring.Logic
 
 		public void OnPointerEnterDrawArea(){
 			GameManager.pointerInDrawArea = true;
+			//Debug.Log("Inside draw area");
 		}
 
 		public void OnPointerExitDrawArea(){
 			GameManager.pointerInDrawArea = false;
+			//Debug.Log("Exit draw area");
 		}
 
 		public void DisableGameManager ()
