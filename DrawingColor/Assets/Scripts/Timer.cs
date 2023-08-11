@@ -5,8 +5,16 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
-    [SerializeField] Image timerFillbar;
+    #region Instance
+    public static Timer instance;
+    public void Awake()
+    {
+        instance = this;
+    }
+    #endregion
 
+    [SerializeField] Image timerFillbar;
+    [SerializeField] GameObject ClockHand;
     float barDivision;
 
     
@@ -17,9 +25,11 @@ public class Timer : MonoBehaviour
 
     public UnityEngine.Events.UnityEvent onTimerEnd; // Event to trigger when the timer ends
 
+    bool stopTimer;
     private void Start()
     {
-        timerFillbar.fillAmount = 0;
+        stopTimer = false;
+        //timerFillbar.fillAmount = 0;
         barDivision = 1 / totalTime;
 
         remainingTime = totalTime;
@@ -28,17 +38,20 @@ public class Timer : MonoBehaviour
 
     private void Update()
     {
-        if (remainingTime > 0)
+        if (!stopTimer)
         {
-            remainingTime -= Time.deltaTime;
-
-            UpdateTimerDisplay();
-
-            if (remainingTime <= 0)
+            if (remainingTime > 0)
             {
-                remainingTime = 0;
+                remainingTime -= Time.deltaTime;
+
                 UpdateTimerDisplay();
-                TimerEnded();
+
+                if (remainingTime <= 0)
+                {
+                    remainingTime = 0;
+                    UpdateTimerDisplay();
+                    TimerEnded();
+                }
             }
         }
     }
@@ -46,22 +59,54 @@ public class Timer : MonoBehaviour
     void UpdateTimerDisplay()
     {
         Debug.Log("Timer: " + FormatTime(remainingTime));
-        timerFillbar.fillAmount = (totalTime - remainingTime) / totalTime;
+        //timerFillbar.fillAmount = (totalTime - remainingTime) / totalTime;
+        float division = 360 / totalTime;
+        ClockHand.transform.rotation = Quaternion.Euler(0, 0, -(totalTime - remainingTime) * division);
         if (timerText != null)
         {
             timerText.text = FormatTime(remainingTime);
         }
     }
-
+    public void SubmitDrawing()
+    {
+        StopTimer();
+        SummaryScreen.instance.UpdateTimeText(FormatTime(totalTime - remainingTime).ToString());
+        SummaryScreen.instance.SetTimePassed(remainingTime);
+        SummaryScreen.instance.StartGameEndSequence();
+    }
     void TimerEnded()
     {
-        // Trigger the event when the timer ends
+        StopTimer();
+        SummaryScreen.instance.SetTimePassed(0);
+        SummaryScreen.instance.StartGameEndSequence();
+        SummaryScreen.instance.UpdateTimeText(FormatTime(totalTime - remainingTime).ToString());
         if (onTimerEnd != null)
         {
             onTimerEnd.Invoke();
         }
     }
+    public void RestartTimer()
+    {
+        StopTimer();
+        ResetTimer();
+        StartTimer();
+    }
+    public void ResetTimer()
+    {
+        StopTimer();
+        barDivision = 1 / totalTime;
 
+        remainingTime = totalTime;
+        UpdateTimerDisplay();
+    }
+    public void StartTimer()
+    {
+        stopTimer = false;
+    }
+    public void StopTimer()
+    {
+        stopTimer = true;
+    }
     string FormatTime(float time)
     {
         int minutes = Mathf.FloorToInt(time / 60);

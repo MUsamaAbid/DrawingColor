@@ -63,6 +63,7 @@ namespace IndieStudio.DrawingAndColoring.Logic
 
 			TableShape.selectedShape = tableShape;
 			Debug.Log("Shape Selected: " + tableShape.name);
+			Timer.instance.StartTimer();
 			LoadGameScene ();
 		}
 
