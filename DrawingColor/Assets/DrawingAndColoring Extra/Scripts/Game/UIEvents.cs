@@ -18,6 +18,10 @@ namespace IndieStudio.DrawingAndColoring.Logic
 	{
 		public void ResetZoom(){
 			CameraZoom.ResetZoom ();
+            if (Timer.instance)
+            {
+				Timer.instance.RestartTimer();
+            }
 		}
 
 		public void PointerButtonEvent(Pointer pointer){
@@ -63,7 +67,10 @@ namespace IndieStudio.DrawingAndColoring.Logic
 
 			TableShape.selectedShape = tableShape;
 			Debug.Log("Shape Selected: " + tableShape.name);
-			Timer.instance.StartTimer();
+            if (Timer.instance)
+            {
+				Timer.instance.StartTimer();
+			}
 			LoadGameScene ();
 		}
 
