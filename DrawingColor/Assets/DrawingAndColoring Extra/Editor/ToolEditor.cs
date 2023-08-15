@@ -163,10 +163,11 @@ namespace IndieStudio.DrawingAndColoring.DCEditor
 				//}
 			}
 
-			//Audioclip effect for Fill and Stamp features
-			if (tool.feature == IndieStudio.DrawingAndColoring.Logic.Tool.ToolFeature.Fill || tool.feature == IndieStudio.DrawingAndColoring.Logic.Tool.ToolFeature.Stamp) {
-				tool.audioClip = EditorGUILayout.ObjectField ("Audio Clip", tool.audioClip, typeof(AudioClip), true) as AudioClip;
-			}
+            //Audioclip effect for Fill and Stamp features
+            tool.audioClip = EditorGUILayout.ObjectField("Audio Clip", tool.audioClip, typeof(AudioClip), true) as AudioClip;
+   //         if (tool.feature == IndieStudio.DrawingAndColoring.Logic.Tool.ToolFeature.Fill || tool.feature == IndieStudio.DrawingAndColoring.Logic.Tool.ToolFeature.Stamp) {
+			//	tool.audioClip = EditorGUILayout.ObjectField ("Audio Clip", tool.audioClip, typeof(AudioClip), true) as AudioClip;
+			//}
 
 			if (GUI.changed) {
 				DirtyUtil.MarkSceneDirty ();

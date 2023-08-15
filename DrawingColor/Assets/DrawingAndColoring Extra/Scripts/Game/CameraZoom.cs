@@ -116,6 +116,7 @@ namespace IndieStudio.DrawingAndColoring.Logic
 		/// Raise the zoom in press event.
 		/// </summary>
 		public void OnZoomInPress(){
+			SoundManager.Instance.PlayClickSFX();
 			zoomInPress = true;
 			if (gameManager.currentTool.feature == Tool.ToolFeature.Hand) {
 				CameraDrag.isRunning = false;
@@ -136,6 +137,8 @@ namespace IndieStudio.DrawingAndColoring.Logic
 		/// Raise the zoom out press event.
 		/// </summary>
 		public void OnZoomOutPress(){
+
+			SoundManager.Instance.PlayClickSFX();
 			zoomOutPress = true;
 			CameraDrag.isRunning = false;
 		}

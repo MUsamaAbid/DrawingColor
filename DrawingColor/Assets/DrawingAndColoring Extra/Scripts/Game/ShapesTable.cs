@@ -190,7 +190,11 @@ namespace IndieStudio.DrawingAndColoring.Logic
 							//enable image component
 							content.GetComponent<Image> ().enabled = true;
 							//add click listener
-							tableShapeGameObject.GetComponent<Button> ().onClick.AddListener (() => GameObject.FindObjectOfType<UIEvents> ().AlbumShapeEvent (tableShapeGameObject.GetComponent<TableShape> ()));
+							tableShapeGameObject.GetComponent<Button> ().onClick.AddListener(() => 
+							{
+								GameObject.FindObjectOfType<UIEvents>().AlbumShapeEvent(tableShapeGameObject.GetComponent<TableShape>());
+								SoundManager.Instance.PlayClickSFX();
+							});
 							content.gameObject.SetActive (true);
 							shapes.Add (tableShapeComponent);//add table shape component to the list
 					}

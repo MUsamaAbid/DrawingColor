@@ -58,7 +58,7 @@ public class Timer : MonoBehaviour
 
     void UpdateTimerDisplay()
     {
-        Debug.Log("Timer: " + FormatTime(remainingTime));
+        //Debug.Log("Timer: " + FormatTime(remainingTime));
         //timerFillbar.fillAmount = (totalTime - remainingTime) / totalTime;
         float division = 360 / totalTime;
         ClockHand.transform.rotation = Quaternion.Euler(0, 0, -(totalTime - remainingTime) * division);
@@ -69,6 +69,7 @@ public class Timer : MonoBehaviour
     }
     public void SubmitDrawing()
     {
+        IndieStudio.DrawingAndColoring.Logic.SoundManager.Instance.PlayClickSFX();
         StopTimer();
         SummaryScreen.instance.UpdateTimeText(FormatTime(totalTime - remainingTime).ToString());
         SummaryScreen.instance.SetTimePassed(remainingTime);
@@ -76,6 +77,7 @@ public class Timer : MonoBehaviour
     }
     void TimerEnded()
     {
+        IndieStudio.DrawingAndColoring.Logic.SoundManager.Instance.PlayTimer(); ;
         StopTimer();
         SummaryScreen.instance.SetTimePassed(0);
         SummaryScreen.instance.StartGameEndSequence();

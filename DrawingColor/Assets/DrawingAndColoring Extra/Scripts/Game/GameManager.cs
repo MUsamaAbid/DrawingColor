@@ -14,6 +14,8 @@ namespace IndieStudio.DrawingAndColoring.Logic
 	[DisallowMultipleComponent]
 	public class GameManager : MonoBehaviour
 	{
+
+
 		/// <summary>
 		/// The lines counter.
 		/// </summary>
@@ -127,8 +129,10 @@ namespace IndieStudio.DrawingAndColoring.Logic
 		/// </summary>
 		public RawImage CursorZoomOutput;
 
-		void Awake(){
 
+		void Awake()
+		{
+            
 			uiEvents = GameObject.FindObjectOfType<UIEvents> ();
 			InstantiateDrawingContents ();
 		}
@@ -349,6 +353,8 @@ namespace IndieStudio.DrawingAndColoring.Logic
 
 			//Set the line texture mode
 			currentLine.lineRenderer.textureMode = currentTool.lineTextureMode;
+			if (currentTool.audioClip != null && AudioSources.instance != null)
+				AudioSources.instance.SFXAudioSource().PlayOneShot(currentTool.audioClip);//play Tool audio clip
 		}
 
 		/// <summary>
@@ -511,9 +517,10 @@ namespace IndieStudio.DrawingAndColoring.Logic
 				if(shapePart!=null){//Shape Part
 					SpriteRenderer spriteRenderer = hit2d.collider.GetComponent<SpriteRenderer>();
 					if (spriteRenderer != null) {
-						if(currentTool.audioClip!=null)
-							CommonUtil.PlayOneShotClipAt(currentTool.audioClip,Vector3.zero,1);//play Tool audio clip
-
+						//if(currentTool.audioClip!=null)
+						//	CommonUtil.PlayOneShotClipAt(currentTool.audioClip,Vector3.zero,1);//play Tool audio clip
+						if (currentTool.audioClip != null && AudioSources.instance != null)
+							AudioSources.instance.SFXAudioSource().PlayOneShot(currentTool.audioClip);//play Tool audio clip
 						History.Element lastElement = Area.shapesDrawingContents[ShapesManager.instance.lastSelectedShape].GetComponent<History> ().GetLastElement();
 
 						bool equalsLastElement = false;
@@ -876,7 +883,7 @@ namespace IndieStudio.DrawingAndColoring.Logic
 		/// Go to the Next shape.
 		/// </summary>
 		public void NextShape(){
-
+			Debug.Log("next shape");
 			if (ShapesManager.instance.shapes == null) {
 				return;
 			}
@@ -1008,5 +1015,7 @@ namespace IndieStudio.DrawingAndColoring.Logic
 				Area.shapesDrawingContents [i].lastPartSortingOrder = 0;
 			}
 		}
+
+		
 	}
 }

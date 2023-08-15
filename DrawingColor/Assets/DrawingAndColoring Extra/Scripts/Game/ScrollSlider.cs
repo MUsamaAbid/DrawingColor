@@ -273,6 +273,7 @@ namespace IndieStudio.DrawingAndColoring.Logic
 		/// </summary>
 		public void GoToCurrentGroup ()
 		{
+			
 			if (groups == null) {
 				return;
 			}
@@ -317,6 +318,7 @@ namespace IndieStudio.DrawingAndColoring.Logic
 		/// </summary>
 		public void NextGroup ()
 		{
+			SoundManager.Instance.PlayClickSFX();
 			if (groups == null) {
 				return;
 			}
@@ -343,6 +345,7 @@ namespace IndieStudio.DrawingAndColoring.Logic
 		/// </summary>
 		public void PreviousGroup ()
 		{
+			SoundManager.Instance.PlayClickSFX();
 			if (groups == null) {
 				return;
 			}

@@ -143,7 +143,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      color-palate_0: -6191294859954766909
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

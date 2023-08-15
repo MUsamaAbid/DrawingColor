@@ -16,7 +16,9 @@ namespace IndieStudio.DrawingAndColoring.Logic
 	[DisallowMultipleComponent]
 	public class UIEvents : MonoBehaviour
 	{
+		
 		public void ResetZoom(){
+			SoundManager.Instance.PlayClickSFX();
 			CameraZoom.ResetZoom ();
             if (Timer.instance)
             {
@@ -44,6 +46,7 @@ namespace IndieStudio.DrawingAndColoring.Logic
 
 		public void UndoClickEvent ()
 		{
+			SoundManager.Instance.PlayClickSFX();
 			History history = GameObject.FindObjectOfType<History> ();
 			if (history != null) {
 				history.UnDo ();
@@ -52,6 +55,7 @@ namespace IndieStudio.DrawingAndColoring.Logic
 
 		public void RedoClickEvent ()
 		{
+			SoundManager.Instance.PlayClickSFX();
 			History history = GameObject.FindObjectOfType<History> ();
 			if (history != null) {
 				GameManager.interactable = false;
@@ -96,6 +100,7 @@ namespace IndieStudio.DrawingAndColoring.Logic
 
 		public void ShowTrashConfirmDialog ()
 		{
+			SoundManager.Instance.PlayClickSFX();
 			AdsManager.instance.ShowAdvertisment (AdPackage.AdEvent.Event.ON_SHOW_TRASH_DIALOG);
 			DisableGameManager ();
 			GameObject.Find ("TrashConfirmDialog").GetComponent<ConfirmDialog> ().Show ();
@@ -103,6 +108,7 @@ namespace IndieStudio.DrawingAndColoring.Logic
 
 		public void TrashConfirmDialogEvent (GameObject value)
 		{
+			SoundManager.Instance.PlayClickSFX();
 			if (value == null) {
 				return;
 			}
@@ -126,7 +132,7 @@ namespace IndieStudio.DrawingAndColoring.Logic
 			}
 			
 			GameManager gameManager = GameObject.FindObjectOfType<GameManager> ();
-			
+			SoundManager.Instance.PlayClickSFX();
 			if (tool.useAsToolContent) {//like an eraser
 				gameManager.currentToolContent = tool.GetComponent<ToolContent> ();
 			}
@@ -165,18 +171,23 @@ namespace IndieStudio.DrawingAndColoring.Logic
 			}
 
 			GameManager gameManager = GameObject.FindObjectOfType<GameManager> ();
+			SoundManager.Instance.PlayClickSFX();
 			gameManager.SelectToolContent (content);
 		}
 
 		public void NextButtonClickEvent ()
 		{
 			GameManager gameManager = GameObject.FindObjectOfType<GameManager> ();
+			Debug.Log("next");
+			SoundManager.Instance.PlayClickSFX();
 			gameManager.NextShape ();
 		}
 
 		public void PreviousButtonClickEvent ()
 		{
-			GameManager gameManager = GameObject.FindObjectOfType<GameManager> ();
+			GameManager gameManager = GameObject.FindObjectOfType<GameManager>();
+			Debug.Log("previous");
+			SoundManager.Instance.PlayClickSFX();
 			gameManager.PreviousShape ();
 		}
 
@@ -228,6 +239,7 @@ namespace IndieStudio.DrawingAndColoring.Logic
 
 		public void LoadAlbumScene ()
 		{
+			SoundManager.Instance.PlayClickSFX();
 			StartCoroutine (LoadSceneAsync("Album"));
 		}
 
